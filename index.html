@@ -5,61 +5,325 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BTKGame - Oyun İçi Satın Alımlar</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary: #0275d8;
+            --secondary: #2c2c2c;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+        }
+        
+        .header {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem 0;
             text-align: center;
-            background-color: #f4f4f4;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        header {
-            background: #333;
-            color: white;
-            padding: 20px;
-            font-size: 24px;
-        }
+        
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .card {
+            background-color: white;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
-        .button {
+        
+        .card-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .card-subtitle {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .btn {
             display: inline-block;
-            background: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            margin: 10px;
-            text-decoration: none;
+            padding: 0.75rem 1.5rem;
             border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 200px;
         }
-        .button:hover {
-            background: #0056b3;
-        }
-        footer {
-            margin-top: 20px;
-            background: #333;
+        
+        .btn-primary {
+            background-color: var(--primary);
             color: white;
-            padding: 10px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0263ba;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(2, 117, 216, 0.2);
+        }
+        
+        .notice {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .notice a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .notice a:hover {
+            text-decoration: underline;
+        }
+        
+        .game-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .game-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .game-img {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .pubg-bg {
+            background-image: url('/api/placeholder/280/160');
+            background-color: #ffc107;
+        }
+        
+        .ml-bg {
+            background-image: url('/api/placeholder/280/160');
+            background-color: #17a2b8;
+        }
+        
+        .valorant-bg {
+            background-image: url('/api/placeholder/280/160');
+            background-color: #dc3545;
+        }
+        
+        .lol-bg {
+            background-image: url('/api/placeholder/280/160');
+            background-color: #28a745;
+        }
+        
+        .aoe-bg {
+            background-image: url('/api/placeholder/280/160');
+            background-color: #6f42c1;
+        }
+        
+        .game-info {
+            padding: 1.5rem;
+        }
+        
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--secondary);
+        }
+        
+        .game-desc {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer {
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .popular-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .promo-banner {
+            background: linear-gradient(135deg, #0275d8, #6b10e8);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .promo-banner h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .game-cards {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <header>BTKGame - Oyun İçi Satın Alımlar</header>
+    <header class="header">
+        <h1>BTKGame - Oyun İçi Satın Alımlar</h1>
+    </header>
+    
     <div class="container">
-        <h1>Oyun İçi Para Birimleri ve Özel Teklifler</h1>
-        <p>BTKGame ile en uygun fiyatlarla oyun içi para birimleri satın alın!</p>
+        <section class="card">
+            <h2 class="card-title">Oyun İçi Para Birimleri ve Özel Teklifler</h2>
+            <p class="card-subtitle">BTKGame ile en uygun fiyatlarla oyun içi para birimleri satın alın!</p>
+            
+            <div class="promo-banner">
+                <h3>🎮 ÖZEL FIRSAT</h3>
+                <p>İlk satın alımınızda %10 indirim! Kaçırmayın!</p>
+            </div>
+            
+            <div class="btn-container">
+                <a href="https://www.btkgame.com/pubg-mobile-uc-c-6" class="btn btn-primary">PUBG Mobile UC Satın Al</a>
+                <a href="https://www.btkgame.com/mobile-legends-elmas-tr-c-10" class="btn btn-primary">Mobile Legends Elmas</a>
+                <a href="https://www.btkgame.com/valorant-c-11" class="btn btn-primary">Valorant VP</a>
+            </div>
+            
+            <p class="notice">
+                Özel indirimlerden haberdar olmak için <a href="https://www.btkgame.com">BTKGame.com</a>'u ziyaret edin!
+            </p>
+        </section>
         
-        <a href="https://www.btkgame.com/pubg-mobile-uc-c-6" class="button">PUBG Mobile UC Satın Al</a>
-        <a href="https://www.btkgame.com/mobile-legends-elmas-tr-c-10" class="button">Mobile Legends Elmas</a>
-        <a href="https://www.btkgame.com/valorant-c-11" class="button">Valorant VP</a>
+        <h2 class="card-title">Popüler Oyunlar</h2>
+        <div class="game-cards">
+            <div class="game-card">
+                <div class="game-img pubg-bg"></div>
+                <div class="game-info">
+                    <h3 class="game-title">PUBG Mobile UC</h3>
+                    <p class="game-desc">PUBG Mobile için UC satın alarak karakterinizi geliştirin ve özel eşyalar elde edin.</p>
+                    <a href="https://www.btkgame.com/pubg-mobile-uc-c-6" class="btn btn-primary">Satın Al</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-img ml-bg"></div>
+                <div class="game-info">
+                    <h3 class="game-title">Mobile Legends Elmas</h3>
+                    <p class="game-desc">Mobile Legends'ta yeni kahramanlar ve kostümler için elmas satın alın.</p>
+                    <a href="https://www.btkgame.com/mobile-legends-elmas-tr-c-10" class="btn btn-primary">Satın Al</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-img valorant-bg"></div>
+                <div class="game-info">
+                    <h3 class="game-title">Valorant VP</h3>
+                    <p class="game-desc">Valorant Points ile yeni silah skinleri ve battle pass satın alın.</p>
+                    <a href="https://www.btkgame.com/valorant-c-11" class="btn btn-primary">Satın Al</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-img lol-bg"></div>
+                <div class="game-info">
+                    <h3 class="game-title">League of Legends RP</h3>
+                    <p class="game-desc">LoL'de Riot Points ile şampiyonları ve skinleri açın.</p>
+                    <a href="https://www.btkgame.com/league-of-legends-rp-c-1" class="btn btn-primary">Satın Al</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-img aoe-bg"></div>
+                <div class="game-info">
+                    <h3 class="game-title">Age of Empires Mobile</h3>
+                    <p class="game-desc">Age of Empires Mobile'da avantaj sağlayacak paketleri keşfedin.</p>
+                    <a href="https://www.btkgame.com/age-of-empires-mobile-c-154" class="btn btn-primary">Satın Al</a>
+                </div>
+            </div>
+        </div>
         
-        <p><strong>Özel indirimlerden haberdar olmak için <a href="https://www.btkgame.com">BTKGame.com</a>'u ziyaret edin!</strong></p>
+        <section class="card">
+            <h2 class="card-title">Neden BTKGame?</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; text-align: center;">
+                <div style="flex: 1; min-width: 200px; margin: 1rem;">
+                    <h3 style="margin-bottom: 0.5rem;">💰 En Uygun Fiyatlar</h3>
+                    <p>Piyasadaki en rekabetçi fiyatlarla oyun içi para birimlerini satın alın.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px; margin: 1rem;">
+                    <h3 style="margin-bottom: 0.5rem;">⚡ Anında Teslimat</h3>
+                    <p>Ödemenizi tamamladıktan sonra saniyeler içinde hesabınıza aktarım.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px; margin: 1rem;">
+                    <h3 style="margin-bottom: 0.5rem;">🔒 Güvenli Ödeme</h3>
+                    <p>SSL sertifikalı güvenli ödeme altyapısı ile güvenle alışveriş yapın.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px; margin: 1rem;">
+                    <h3 style="margin-bottom: 0.5rem;">🎮 Geniş Oyun Seçeneği</h3>
+                    <p>Tüm popüler oyunlar için satın alma seçenekleri.</p>
+                </div>
+            </div>
+        </section>
     </div>
-    <footer>
-        &copy; 2025 BTKGame - Tüm Hakları Saklıdır.
+    
+    <footer class="footer">
+        <p>© 2025 BTKGame - Tüm Hakları Saklıdır.</p>
     </footer>
 </body>
 </html>
