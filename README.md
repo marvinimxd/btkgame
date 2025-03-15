@@ -5,5 +5,5 @@ Uygun fiyatlarla oyun içi para birimleri satın almak için [BTKGame](https://w
 - PUBG Mobile UC
 - Mobile Legends Elmas
 - League Of Legends
-- Age Of Empires Mobile Doruk Paraso
+- Age Of Empires Mobile Doruk Parası
 - Valorant VP ve daha fazlası!
